@@ -1,0 +1,34 @@
+
+task:
+  name: "Setting Up, Syncing, Building and Uploading..."
+  timeout_in: 240m  
+  container:
+      image: ghcr.io/sushrut1101/docker:arch
+      cpu: 8
+      memory: 32G
+
+
+
+  Storage-Checker_script:
+      - df -h
+      - lsblk
+      - ls -l -a -h
+  
+  Sync_script:
+      - echo "============================"
+      - echo "Syncing The Sources..."
+      - echo "============================"
+      - mkdir -p ~/work
+      - cd ~/work
+      - $EXTRA_CMD
+      - export USE_CCACHE=1
+      - export CCACHE_EXEC=/usr/bin/ccache
+      - ccache -M 50G
+      - cd ~
+      - git clone https://github.com/A-s-academy/DumprX.git
+      - ./setup.sh
+      - ./dumper.sh https://gauss-componentotacostmanual-sg.allawnofs.com/remove-c7b3170d7bf82759c620704cf4d9a910/component-ota/22/12/22/d9fa21424242470c8880aa324b03b1f1.zip
+      
+   
+     
+      
